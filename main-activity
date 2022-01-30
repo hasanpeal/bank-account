@@ -1,0 +1,136 @@
+package portfolio;
+
+import java.util.Scanner;
+
+public class banking_application 
+
+{
+	static Scanner scan = new Scanner(System.in);
+
+	public static void main(String[] args) 
+	
+	{
+		bank_account object = new bank_account("ABC", "001");
+		object.display_menu();
+
+	}
+
+}
+
+class bank_account
+{
+	static Scanner scan = new Scanner(System.in);
+	double balance;
+	double previous_transaction;
+	String customer_name;
+	String customer_id;
+	
+	bank_account(String cname, String cid)
+	{
+		customer_name = cname;
+		customer_id = cid;
+	}
+	
+	void deposit(double amount)
+	{
+		if(amount != 0)
+		{
+			balance = balance + amount;
+			previous_transaction = amount;
+		}
+	}
+	
+	void withdraw(double amount)
+	{
+		if(amount != 0)
+		{
+			balance = balance - amount;
+			previous_transaction = -amount;
+		}
+	}
+	
+	void get_previous_transaction()
+	{
+		if(previous_transaction > 0)
+		{
+			System.out.println("Deposited: $" + previous_transaction);
+		}
+		
+		else if(previous_transaction < 0)
+		{
+			System.out.println("Withdrawn: $" + Math.abs(previous_transaction));
+		}
+		
+		else
+		{
+			System.out.println("No transaction occured");
+		}
+	}
+	
+	void display_menu()
+	
+	{
+		char option = '0';
+		
+		System.out.println("Welcome " + customer_name);
+		System.out.println("Your ID is " + customer_id);
+		System.out.println("******************************");
+		System.out.println("Press A: Check Balance");
+		System.out.println("Press B: Deposit");
+		System.out.println("Press C: Withdraw");
+		System.out.println("Press D: Previous Transaction");
+		System.out.println("Press E: Exit");
+		System.out.println("******************************");
+		
+		do
+			
+		{
+			System.out.println("Enter an option:");
+			option = scan.next().charAt(0);
+			System.out.println("******************************");
+			
+			switch(option)
+			
+			{
+			
+			case 'A':
+				
+				System.out.println("Balance = $" + balance);
+				break;
+				
+			case 'B':
+				
+				System.out.println("Enter an amount of deposit");
+				double amount = scan.nextDouble();
+				deposit(amount);
+				break;
+			
+			case 'C':
+				
+				System.out.println("Enter an amount to withdraw");
+				double amount2 = scan.nextDouble();
+				withdraw(amount2);
+				break;
+				
+			case 'D':
+				
+				get_previous_transaction();
+				break;
+				
+			case 'E':
+				
+				System.out.println("Thanks for using our bank");
+				System.exit(0);
+				
+			default:
+				
+				System.out.print("Invalid option! Please enter again");
+				break;
+				
+			}
+				
+		}while(option != 0);
+		
+	}
+	
+}
